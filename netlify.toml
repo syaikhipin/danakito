@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".output/public"
+
+[build.environment]
+  NUXT_PUBLIC_SUPABASE_URL = ""
+  NUXT_PUBLIC_SUPABASE_ANON_KEY = ""
+  OPENROUTER_API_KEY = ""
+  GEMINI_API_KEY = ""
+  GEMINI_MODEL = "" 

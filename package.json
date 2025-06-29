@@ -1,0 +1,34 @@
+{
+  "name": "danakito",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "setup:mock-data": "node scripts/setupMockData.js"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.8.4",
+    "nuxt": "^3.8.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
+    "@nuxt/ui": "^2.11.1",
+    "@pinia/nuxt": "^0.5.1",
+    "@supabase/supabase-js": "^2.38.4",
+    "@types/leaflet": "^1.9.8",
+    "@vueuse/nuxt": "^10.5.0",
+    "chart.js": "^4.4.0",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
+    "leaflet.heat": "^0.2.0",
+    "pinia": "^2.1.7",
+    "vue-chartjs": "^5.2.0"
+  }
+} 

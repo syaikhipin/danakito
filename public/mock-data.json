@@ -1,0 +1,30 @@
+{
+  "mobility": [
+    { "lat": 40.7589, "lng": -73.9851, "intensity": 0.8 },
+    { "lat": 40.7505, "lng": -73.9934, "intensity": 0.9 },
+    { "lat": 40.7061, "lng": -74.0087, "intensity": 0.7 },
+    { "lat": 40.7829, "lng": -73.9654, "intensity": 0.6 },
+    { "lat": 40.6892, "lng": -74.0445, "intensity": 0.5 }
+  ],
+  "spending": [
+    { "lat": 40.7306, "lng": -73.9352, "amount": 1200 },
+    { "lat": 40.7128, "lng": -74.0060, "amount": 900 },
+    { "lat": 40.7484, "lng": -73.9857, "amount": 1500 },
+    { "lat": 40.7648, "lng": -73.9808, "amount": 700 },
+    { "lat": 40.7295, "lng": -73.9965, "amount": 1100 }
+  ],
+  "opportunity": [
+    { "lat": 40.7411, "lng": -73.9897, "score": 92 },
+    { "lat": 40.7527, "lng": -73.9772, "score": 88 },
+    { "lat": 40.7308, "lng": -73.9973, "score": 95 },
+    { "lat": 40.7551, "lng": -73.9867, "score": 90 },
+    { "lat": 40.7216, "lng": -74.0047, "score": 85 }
+  ],
+  "demographics": [
+    { "lat": 40.714, "lng": -74.00, "population": 2500, "avgIncome": 85000 },
+    { "lat": 40.728, "lng": -73.98, "population": 3200, "avgIncome": 95000 },
+    { "lat": 40.75, "lng": -73.97, "population": 1800, "avgIncome": 110000 },
+    { "lat": 40.77, "lng": -73.95, "population": 2100, "avgIncome": 105000 },
+    { "lat": 40.70, "lng": -73.99, "population": 4500, "avgIncome": 75000 }
+  ]
+} 
