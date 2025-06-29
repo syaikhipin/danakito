@@ -29,6 +29,16 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       wasm: true
+    },
+    static: true,
+    prerender: {
+      crawlLinks: true,
+      routes: [
+        '/',
+        '/analysis',
+        '/analysis-report',
+        '/credit-analysis'
+      ]
     }
   },
   typescript: {
