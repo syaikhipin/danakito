@@ -3,7 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2025-06-29',
   modules: [
-    '@nuxt/ui',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vueuse/nuxt'
