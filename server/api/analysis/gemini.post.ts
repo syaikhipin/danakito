@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
   // Default to Gemini 2.0 Flash if not configured
   const geminiApiKey = config.geminiApiKey || process.env.GEMINI_API_KEY
-  const geminiModel = config.geminiModel || process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp'
+  const geminiModel = config.geminiModel || process.env.GEMINI_MODEL || 'gemini-2.0-flash'
 
   console.log('🤖 Gemini API Config:', {
     hasApiKey: !!geminiApiKey,

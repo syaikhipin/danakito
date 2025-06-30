@@ -326,7 +326,17 @@ const runAnalysis = async () => {
     console.log('✅ Analysis completed successfully:', result)
   } catch (error) {
     console.error('❌ Analysis failed:', error)
-    alert('Analysis failed. Please try again.')
+    // Instead of alert, set a user-friendly error message
+    analysisResults.value = {
+      score: 0,
+      market: 'Error',
+      risk: 'Unable to analyze',
+      roi: '0',
+      recommendation: 'Analysis failed. Please check your connection and try again.',
+      detailedAnalysis: 'There was an error processing your request. Please try again with different parameters or check your internet connection.',
+      source: 'error',
+      creditComparison: []
+    }
   } finally {
     analyzing.value = false
   }

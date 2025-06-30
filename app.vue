@@ -28,7 +28,7 @@ useHead({
 // Initialize global error handling
 onErrorCaptured((error) => {
   console.error('Global error:', error)
-  alert('Something went wrong. Please try again.')
+      console.error('Something went wrong. Please try again.')
 })
 </script>
 

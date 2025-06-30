@@ -477,7 +477,8 @@ const generateBreakEvenData = () => {
 const downloadReport = () => {
   window.print()
   // In a real app, you would generate a PDF here
-  alert('PDF download functionality would be implemented here')
+        // PDF download functionality would be implemented here
+      console.log('PDF download requested for:', reportData.value?.analysis)
 }
 
 // Generate report on mount

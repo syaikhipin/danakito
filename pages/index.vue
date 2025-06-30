@@ -353,10 +353,10 @@ const generateMockData = async () => {
     console.log('Generating mock data...')
     await new Promise(resolve => setTimeout(resolve, 3000))
     console.log('Mock data generated successfully! 🎉')
-    alert('✅ Demo data generated successfully!\n\n📊 Generated:\n• 500+ mobility data points\n• 1000+ spending transactions\n• 200+ investment opportunities\n• Demographic analysis')
+            console.log('✅ Demo data generated successfully! Generated: 500+ mobility data points, 1000+ spending transactions, 200+ investment opportunities, demographic analysis')
   } catch (error) {
     console.error('Error generating mock data:', error)
-    alert('❌ Error generating demo data')
+          console.error('❌ Error generating demo data')
   } finally {
     generatingData.value = false
   }
@@ -389,7 +389,7 @@ const runDetailedAnalysis = async () => {
     window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes')
   } catch (error) {
     console.error('Error running analysis:', error)
-    alert('❌ Error running analysis. Please try again.')
+          console.error('❌ Error running analysis. Please try again.')
   }
 }
 

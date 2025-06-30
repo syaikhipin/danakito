@@ -303,8 +303,16 @@ const runAnalysis = async () => {
     await nextTick()
     renderAllCharts()
   } catch (e) {
-    console.error(e)
-    alert('Analysis failed. Please try again.')
+    console.error('Analysis error:', e)
+    // Instead of alert, set a user-friendly error message
+    result.value = {
+      score: 0,
+      market: 'Error',
+      risk: 'Unable to analyze',
+      roi: '0',
+      recommendation: 'Analysis failed. Please check your connection and try again.',
+      detailedAnalysis: 'There was an error processing your request. Please try again with different parameters or check your internet connection.'
+    }
   } finally {
     loading.value = false
   }
