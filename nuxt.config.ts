@@ -9,12 +9,13 @@ export default defineNuxtConfig({
   ],
   css: [
     'leaflet/dist/leaflet.css',
-    'leaflet-draw/dist/leaflet.draw.css'
+    'leaflet-draw/dist/leaflet.draw.css',
+    '~/public/override.css'
   ],
   runtimeConfig: {
     openrouterApiKey: process.env.OPENROUTER_API_KEY || '',
-    geminiApiKey: process.env.GEMINI_API_KEY,
-    geminiModel: process.env.GEMINI_MODEL,
+    geminiApiKey: process.env.GEMINI_API_KEY || '',
+    geminiModel: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL,
       supabaseAnonKey: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY,

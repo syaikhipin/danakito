@@ -361,8 +361,8 @@ const generateReport = async () => {
   try {
     console.log('Generating detailed analysis report...')
     
-    // Call OpenRouter API for detailed analysis
-    const response = await $fetch('/api/analysis/openrouter', {
+    // Call Gemini API for detailed analysis
+const response = await $fetch('/api/analysis/gemini', {
       method: 'POST',
       body: {
         ...params,

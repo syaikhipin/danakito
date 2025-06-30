@@ -1,0 +1,93 @@
+/* Global CSS overrides for Netlify deployment */
+/* Force all buttons to be clickable and remove gray states */
+
+/* Override any disabled button styling */
+button[disabled],
+button:disabled,
+.disabled {
+  background-color: inherit !important;
+  color: inherit !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  border: inherit !important;
+}
+
+/* Remove cursor restrictions */
+.cursor-not-allowed {
+  cursor: pointer !important;
+}
+
+/* Override problematic gray backgrounds */
+.bg-gray-400 {
+  background-color: rgb(59 130 246) !important; /* Blue */
+}
+
+.bg-gray-300 {
+  background-color: rgb(147 197 253) !important; /* Light blue */
+}
+
+.bg-gray-100 {
+  background-color: white !important;
+}
+
+/* Override gray text colors */
+.text-gray-400 {
+  color: rgb(55 65 81) !important;
+}
+
+.text-gray-200 {
+  color: rgb(31 41 55) !important;
+}
+
+/* Ensure all elements are interactive */
+* {
+  pointer-events: auto !important;
+}
+
+/* Override any external library disabled states */
+[disabled],
+[aria-disabled="true"],
+.is-disabled {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+/* Ensure form elements are always interactive */
+input[disabled],
+select[disabled],
+textarea[disabled] {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Force interactive states for data layer buttons */
+.border-gray-300 {
+  border-color: rgb(59 130 246) !important;
+}
+
+/* Ensure drawing tools are always visible and clickable */
+.drawing-tools button {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Override any Tailwind disabled utilities */
+.disabled\:bg-gray-400 {
+  background-color: rgb(59 130 246) !important;
+}
+
+.disabled\:text-gray-200 {
+  color: white !important;
+}
+
+.disabled\:cursor-not-allowed {
+  cursor: pointer !important;
+} 

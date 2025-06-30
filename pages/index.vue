@@ -429,6 +429,54 @@ function getGeoJSONCenter(geoJSON: any) {
   return { lat: 40.7128, lng: -74.0060 } // Default fallback
 }
 
+// Function to force fix any gray panels
+const forceFixGrayPanels = () => {
+  // Force all buttons to be enabled and clickable
+  const fixButtons = () => {
+    const buttons = document.querySelectorAll('button')
+    buttons.forEach(button => {
+      button.style.pointerEvents = 'auto'
+      button.style.cursor = 'pointer'
+      button.style.opacity = '1'
+      
+      // Remove disabled attribute but keep click handlers
+      if (button.hasAttribute('disabled')) {
+        button.removeAttribute('disabled')
+      }
+      
+      // Override gray backgrounds
+      if (button.classList.contains('bg-gray-400')) {
+        button.style.backgroundColor = 'rgb(59 130 246)' // Blue
+        button.style.color = 'white'
+      }
+      
+      if (button.classList.contains('cursor-not-allowed')) {
+        button.style.cursor = 'pointer'
+      }
+    })
+  }
+  
+  // Run immediately and on any DOM changes
+  fixButtons()
+  
+  // Set up mutation observer to fix any dynamically added buttons
+  const observer = new MutationObserver(() => {
+    fixButtons()
+  })
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['disabled', 'class', 'style']
+  })
+  
+  // Also run after a short delay to catch any late-loading elements
+  setTimeout(fixButtons, 100)
+  setTimeout(fixButtons, 500)
+  setTimeout(fixButtons, 1000)
+}
+
 // Initialize when component mounts
 onMounted(() => {
   console.log('🚀 danakito Investment Analysis Platform loaded')
@@ -439,6 +487,9 @@ onMounted(() => {
   if (hasSeenWelcome) {
     showWelcome.value = false
   }
+  
+  // Force fix gray panel issues on mount
+  forceFixGrayPanels()
 })
 
 // Save welcome state when closing
@@ -477,5 +528,71 @@ watch(showWelcome, (newValue) => {
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Force override any gray disabled states on Netlify */
+:deep(button[disabled]),
+:deep(button:disabled),
+:deep(.disabled) {
+  background-color: inherit !important;
+  color: inherit !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  border: inherit !important;
+}
+
+:deep(.cursor-not-allowed) {
+  cursor: pointer !important;
+}
+
+:deep(.bg-gray-400) {
+  background-color: rgb(59 130 246) !important; /* Blue instead of gray */
+}
+
+:deep(.bg-gray-300) {
+  background-color: rgb(147 197 253) !important; /* Light blue */
+}
+
+:deep(.bg-gray-100) {
+  background-color: white !important;
+}
+
+:deep(.text-gray-400) {
+  color: rgb(55 65 81) !important;
+}
+
+:deep(.text-gray-200) {
+  color: rgb(31 41 55) !important;
+}
+
+/* Ensure all elements are interactive */
+:deep(*) {
+  pointer-events: auto !important;
+}
+
+/* Override disabled utilities */
+:deep(.disabled\:bg-gray-400) {
+  background-color: rgb(59 130 246) !important;
+}
+
+:deep(.disabled\:text-gray-200) {
+  color: white !important;
+}
+
+:deep(.disabled\:cursor-not-allowed) {
+  cursor: pointer !important;
+}
+
+/* Make sure drawing tools are always clickable */
+:deep(.drawing-tools button) {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Force data layer buttons to be clickable */
+:deep(.border-gray-300) {
+  border-color: rgb(59 130 246) !important;
 }
 </style> 

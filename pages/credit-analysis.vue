@@ -271,8 +271,8 @@
 </template>
 
 <script setup lang="ts">
-import { openRouterService, type InvestmentAnalysisResponse } from '~/utils/openrouterService'
-import { useFetch } from '#imports'
+// Using Gemini API directly
+import type { InvestmentAnalysisResponse } from '~/types/analysis'
 
 // SEO
 useHead({
@@ -307,10 +307,18 @@ const runAnalysis = async () => {
   analyzing.value = true
   
   try {
-    const result = await openRouterService.analyzeInvestment({
-      location: location.value,
-      investmentType: investmentType.value,
-      creditAmount: creditAmount.value
+    const result = await $fetch('/api/analysis/gemini', {
+      method: 'POST',
+      body: {
+        location: location.value,
+        investmentType: investmentType.value,
+        creditAmount: creditAmount.value,
+        tenor: 60, // Default 5 years
+        mobilityData: [],
+        spendingData: [],
+        opportunityData: [],
+        generateDetailedReport: false
+      }
     })
     
     analysisResults.value = result
