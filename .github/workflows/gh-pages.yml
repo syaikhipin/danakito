@@ -31,6 +31,7 @@ jobs:
       - name: Build
         run: |
           echo "NODE_ENV=production" > .env.production
+          echo "NUXT_PUBLIC_BASE_URL=/danakito/" >> .env.production
           npm run generate
 
       - name: Deploy to gh-pages branch

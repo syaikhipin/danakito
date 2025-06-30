@@ -1,14 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2025-06-29',
   app: {
-    baseURL: process.env.NODE_ENV === 'production' ? '/danakito/' : '/',
+    baseURL: process.env.NUXT_PUBLIC_BASE_URL || '/',
     buildAssetsDir: '/_nuxt/'
   },
-  router: {
-    base: process.env.NODE_ENV === 'production' ? '/danakito/' : '/'
-  },
+  // Router configuration is handled by app.baseURL in Nuxt 3
+  // Removed duplicate router.base to fix TypeScript error
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
@@ -39,9 +40,8 @@ export default defineNuxtConfig({
       wasm: true
     }
   },
-  generate: {
-    fallback: true
-  },
+  // Generate configuration is not needed for static site generation in Nuxt 3
+  // Removed to fix TypeScript error
   typescript: {
     strict: true
   }
