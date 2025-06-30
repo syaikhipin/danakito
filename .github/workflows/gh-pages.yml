@@ -5,12 +5,30 @@ on:
     branches: [dev-aan-enabling-github-page]  # Using your testing branch
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  build-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -21,15 +39,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate
+      - name: Build
         run: |
           echo "NODE_ENV=production" > .env.production
           npm run generate
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: .output/public
-          branch: gh-pages
-          clean: true
-          force: true
+          path: './.output/public'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
