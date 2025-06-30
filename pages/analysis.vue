@@ -287,18 +287,19 @@ const runAnalysis = async () => {
   loading.value = true
   result.value = null
   try {
+    const { GeminiService } = await import('~/utils/geminiService')
+    const geminiService = new GeminiService()
+    
     const nearbyData = getNearbyData();
-    const response = await $fetch('/api/analysis/gemini', {
-      method: 'POST',
-      body: {
-        location: location.value,
-        investmentType: investmentType.value,
-        creditAmount: amount.value,
-        tenor: tenor.value,
-        generateDetailedReport: true,
-        ...nearbyData
-      }
+    const response = await geminiService.analyzeInvestment({
+      location: location.value,
+      investmentType: investmentType.value,
+      creditAmount: amount.value,
+      tenor: tenor.value,
+      generateDetailedReport: true,
+      ...nearbyData
     })
+    
     result.value = response
     await nextTick()
     renderAllCharts()

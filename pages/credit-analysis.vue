@@ -271,8 +271,7 @@
 </template>
 
 <script setup lang="ts">
-import { openRouterService, type InvestmentAnalysisResponse } from '~/utils/openrouterService'
-import { useFetch } from '#imports'
+// Updated to use client-side Gemini service instead of OpenRouter
 
 // SEO
 useHead({
@@ -287,7 +286,7 @@ const creditAmount = ref(250000)
 const investmentType = ref('retail')
 const location = ref('New York City, NY')
 const analyzing = ref(false)
-const analysisResults = ref<InvestmentAnalysisResponse | null>(null)
+const analysisResults = ref<any | null>(null)
 
 // Computed properties
 const maxMonthlyPayment = computed(() => {
@@ -307,10 +306,15 @@ const runAnalysis = async () => {
   analyzing.value = true
   
   try {
-    const result = await openRouterService.analyzeInvestment({
+    const { GeminiService } = await import('~/utils/geminiService')
+    const geminiService = new GeminiService()
+    
+    const result = await geminiService.analyzeInvestment({
       location: location.value,
       investmentType: investmentType.value,
-      creditAmount: creditAmount.value
+      creditAmount: creditAmount.value,
+      tenor: 24, // Default 24 months for credit analysis
+      generateDetailedReport: false
     })
     
     analysisResults.value = result
