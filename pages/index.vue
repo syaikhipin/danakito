@@ -24,11 +24,14 @@
                 v-for="option in heatmapOptions" 
                 :key="option.value"
                 @click="selectHeatmapType(option.value)"
+                :disabled="isLoading"
                 :class="[
                   'w-full text-left px-4 py-3 text-sm rounded-lg border-2 transition-all duration-200',
-                  currentHeatmapType === option.value 
-                    ? 'border-blue-500 bg-blue-50 text-blue-900 shadow-sm' 
-                    : 'border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
+                  isLoading 
+                    ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : currentHeatmapType === option.value 
+                      ? 'border-blue-500 bg-blue-50 text-blue-900 shadow-sm' 
+                      : 'border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
                 ]"
               >
                 <div class="flex items-center space-x-3">
@@ -47,35 +50,59 @@
         </div>
 
         <!-- Drawing Tools Section -->
-        <div class="p-6 border-b border-gray-100">
+        <div class="p-6 border-b border-gray-100 drawing-tools">
           <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
             ✏️ Drawing Tools
           </h3>
           <div class="space-y-2">
             <button 
               @click="selectDrawingTool('polygon')"
-              class="w-full text-left px-4 py-3 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center space-x-3"
+              :disabled="analyzing"
+              :class="[
+                'w-full text-left px-4 py-3 text-sm rounded-lg transition-colors flex items-center space-x-3',
+                analyzing 
+                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                  : 'bg-green-600 text-white hover:bg-green-700'
+              ]"
             >
               <span class="text-lg">📐</span>
               <span class="font-medium">Draw Polygon</span>
             </button>
             <button 
               @click="selectDrawingTool('rectangle')"
-              class="w-full text-left px-4 py-3 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center space-x-3"
+              :disabled="analyzing"
+              :class="[
+                'w-full text-left px-4 py-3 text-sm rounded-lg transition-colors flex items-center space-x-3',
+                analyzing 
+                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              ]"
             >
               <span class="text-lg">⬜</span>
               <span class="font-medium">Draw Rectangle</span>
             </button>
             <button 
               @click="selectDrawingTool('circle')"
-              class="w-full text-left px-4 py-3 text-sm rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors flex items-center space-x-3"
+              :disabled="analyzing"
+              :class="[
+                'w-full text-left px-4 py-3 text-sm rounded-lg transition-colors flex items-center space-x-3',
+                analyzing 
+                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                  : 'bg-purple-600 text-white hover:bg-purple-700'
+              ]"
             >
               <span class="text-lg">⭕</span>
               <span class="font-medium">Draw Circle</span>
             </button>
             <button 
               @click="selectArea"
-              class="w-full text-left px-4 py-3 text-sm rounded-lg bg-orange-600 text-white hover:bg-orange-700 transition-colors flex items-center space-x-3"
+              :disabled="analyzing"
+              :class="[
+                'w-full text-left px-4 py-3 text-sm rounded-lg transition-colors flex items-center space-x-3',
+                analyzing 
+                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                  : 'bg-orange-600 text-white hover:bg-orange-700'
+              ]"
             >
               <span class="text-lg">🎯</span>
               <span class="font-medium">Select Area</span>
@@ -155,12 +182,46 @@
          <div class="p-6 space-y-3 mt-auto">
            <button
              @click="runDetailedAnalysis"
-             :disabled="analyzing || !selectedAreaGeoJSON"
-             class="w-full flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-4 rounded-lg shadow-lg transition-colors"
+             :disabled="analyzing"
+             :class="[
+               'w-full flex items-center justify-center space-x-2 px-6 py-4 rounded-lg shadow-lg transition-colors font-medium',
+               analyzing 
+                 ? 'bg-gray-400 cursor-not-allowed' 
+                 : !selectedAreaGeoJSON
+                   ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                   : 'bg-green-600 hover:bg-green-700 text-white'
+             ]"
            >
              <div v-if="analyzing" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-             <span class="font-medium">{{ analyzing ? '🧠 Analyzing...' : '🧠 Run AI Analysis' }}</span>
+             <span>
+               {{ analyzing ? '🧠 Analyzing...' : !selectedAreaGeoJSON ? '🎯 Select Area First' : '🧠 Run AI Analysis' }}
+             </span>
            </button>
+           
+           <!-- Help Text -->
+           <div v-if="!selectedAreaGeoJSON && !analyzing" class="text-center">
+             <p class="text-xs text-gray-500 mb-2">👆 Use drawing tools above to select an area on the map</p>
+             <div class="flex justify-center space-x-2">
+               <button 
+                 @click="selectDrawingTool('polygon')"
+                 class="px-3 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors"
+               >
+                 📐 Polygon
+               </button>
+               <button 
+                 @click="selectDrawingTool('rectangle')"
+                 class="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
+               >
+                 ⬜ Rectangle
+               </button>
+               <button 
+                 @click="selectDrawingTool('circle')"
+                 class="px-3 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors"
+               >
+                 ⭕ Circle
+               </button>
+             </div>
+           </div>
          </div>
       </div>
 
@@ -342,15 +403,25 @@ const runAnalysis = () => {
 
 const runDetailedAnalysis = async () => {
   if (!selectedAreaGeoJSON.value) {
-    alert('Please select an area on the map first.')
+    // Instead of showing an alert, guide the user to select an area
+    console.log('No area selected - guiding user to select area')
+    // Scroll to drawing tools or highlight them
+    const drawingSection = document.querySelector('.drawing-tools')
+    if (drawingSection) {
+      drawingSection.scrollIntoView({ behavior: 'smooth' })
+    }
     return
   }
+  
   analyzing.value = true
   try {
     const center = getGeoJSONCenter(selectedAreaGeoJSON.value)
     const url = `/analysis?lat=${center.lat}&lng=${center.lng}&type=${selectedInvestmentType.value}`
     // Open the new analysis workflow page
     window.open(url, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes')
+  } catch (error) {
+    console.error('Error running analysis:', error)
+    alert('❌ Error running analysis. Please try again.')
   } finally {
     analyzing.value = false
   }
