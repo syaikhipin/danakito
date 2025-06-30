@@ -6,6 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "build:netlify": "npm run generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "setup:mock-data": "node scripts/setupMockData.js"

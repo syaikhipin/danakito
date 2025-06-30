@@ -26,11 +26,14 @@ export default defineNuxtConfig({
     }
   },
   ssr: false,
+  target: 'static',
   nitro: {
     experimental: {
       wasm: true
     },
-    static: true,
+    output: {
+      dir: 'dist'
+    },
     prerender: {
       crawlLinks: true,
       routes: [
@@ -40,6 +43,9 @@ export default defineNuxtConfig({
         '/credit-analysis'
       ]
     }
+  },
+  generate: {
+    fallback: true
   },
   typescript: {
     strict: true
