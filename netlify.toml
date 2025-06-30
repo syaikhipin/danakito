@@ -6,8 +6,8 @@
   NUXT_PUBLIC_SUPABASE_URL = ""
   NUXT_PUBLIC_SUPABASE_ANON_KEY = ""
   OPENROUTER_API_KEY = ""
-  GEMINI_API_KEY = ""
-  GEMINI_MODEL = ""
+  GEMINI_API_KEY = "AIzaSyB5-NF7TEYHkKdIMvZ45UNy1bDOCSCZH9Q"
+  GEMINI_MODEL = "gemini-1.5-flash"
 
 # Handle client-side routing (SPA fallback)
 [[redirects]]
