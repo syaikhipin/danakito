@@ -9,7 +9,8 @@
     "build:netlify": "npm run generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "setup:mock-data": "node scripts/setupMockData.js"
+    "setup:mock-data": "node scripts/setupMockData.js",
+    "generate:gh-pages": "NODE_ENV=production nuxt generate"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

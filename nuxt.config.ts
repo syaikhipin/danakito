@@ -2,6 +2,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2025-06-29',
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/danakito/' : '/',
+    buildAssetsDir: '/_nuxt/'
+  },
+  router: {
+    base: process.env.NODE_ENV === 'production' ? '/danakito/' : '/'
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',

@@ -23,6 +23,25 @@ An AI-powered investment analysis platform built with Nuxt 3 that provides inter
 - **Supabase Ready**: Database integration with PostGIS for spatial data
 - **Mock Data Generation**: Realistic demo data for testing
 
+## 🚀 Deploy to GitHub Pages
+
+Follow these steps to deploy your application to GitHub Pages:
+
+1. **Create a GitHub repository** (if you haven't already)
+2. **Push your code** to the repository
+3. **Enable GitHub Pages**:
+   - Go to your repository Settings
+   - Click on "Pages" in the left sidebar
+   - Under "Source", select "GitHub Actions"
+
+4. **Configure GitHub Pages**:
+   - The included GitHub Actions workflow will automatically build and deploy your site
+   - The site will be available at: `https://<your-username>.github.io/danakito`
+
+5. **For custom domains**:
+   - Add your custom domain in the GitHub Pages settings
+   - Update the `baseURL` in `nuxt.config.ts` to match your domain
+
 ## 🛠 Tech Stack
 
 - **Frontend**: Nuxt 3, Vue 3, TypeScript
