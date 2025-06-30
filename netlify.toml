@@ -1,6 +1,6 @@
 [build]
-  command = "npm run generate"
-  publish = "dist"
+  command = "npm run build"
+  publish = ".output/public"
 
 [build.environment]
   NUXT_PUBLIC_SUPABASE_URL = ""
@@ -8,26 +8,10 @@
   GEMINI_API_KEY = ""
   GEMINI_MODEL = "gemini-2.0-flash"
 
-# Handle client-side routing (SPA fallback)
+# API functions handled by Netlify Functions
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Specific redirects for your pages
-[[redirects]]
-  from = "/analysis"
-  to = "/analysis/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/analysis-report"
-  to = "/analysis-report/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/credit-analysis"
-  to = "/credit-analysis/index.html"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
 # Headers for better performance

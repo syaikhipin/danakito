@@ -26,23 +26,10 @@ export default defineNuxtConfig({
       enableAgricultural: process.env.NUXT_PUBLIC_ENABLE_AGRICULTURAL || 'true'
     }
   },
-  ssr: false,
-  target: 'static',
   nitro: {
+    preset: 'netlify',
     experimental: {
       wasm: true
-    },
-    output: {
-      dir: 'dist'
-    },
-    prerender: {
-      crawlLinks: true,
-      routes: [
-        '/',
-        '/analysis',
-        '/analysis-report',
-        '/credit-analysis'
-      ]
     }
   },
   generate: {

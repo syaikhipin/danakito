@@ -429,11 +429,12 @@ function getGeoJSONCenter(geoJSON: any) {
   return { lat: 40.7128, lng: -74.0060 } // Default fallback
 }
 
-// Function to force fix any gray panels
+// Function to force fix any gray panels - Enhanced version
 const forceFixGrayPanels = () => {
-  // Force all buttons to be enabled and clickable
-  const fixButtons = () => {
-    const buttons = document.querySelectorAll('button')
+  // Force all buttons and elements to be enabled and clickable
+  const fixElements = () => {
+    // Fix all buttons
+    const buttons = document.querySelectorAll('button, [role="button"], .leaflet-control-layers-toggle')
     buttons.forEach(button => {
       button.style.pointerEvents = 'auto'
       button.style.cursor = 'pointer'
@@ -453,28 +454,77 @@ const forceFixGrayPanels = () => {
       if (button.classList.contains('cursor-not-allowed')) {
         button.style.cursor = 'pointer'
       }
+      
+      // Force specific Leaflet drawing controls
+      if (button.classList.contains('leaflet-draw-draw-polygon') || 
+          button.classList.contains('leaflet-draw-draw-rectangle') ||
+          button.classList.contains('leaflet-draw-edit-edit') ||
+          button.classList.contains('leaflet-draw-edit-remove')) {
+        button.style.backgroundColor = 'white'
+        button.style.color = 'black'
+        button.style.opacity = '1'
+        button.style.pointerEvents = 'auto'
+        button.style.cursor = 'pointer'
+      }
+    })
+    
+    // Fix all inputs and selects
+    const inputs = document.querySelectorAll('input, select, textarea')
+    inputs.forEach(input => {
+      input.style.pointerEvents = 'auto'
+      input.style.cursor = 'pointer'
+      input.style.opacity = '1'
+      
+      if (input.hasAttribute('disabled')) {
+        input.removeAttribute('disabled')
+      }
+    })
+    
+    // Force body and main containers to allow scrolling
+    document.body.style.overflow = 'auto'
+    document.documentElement.style.overflow = 'auto'
+    
+    // Fix any containers with overflow hidden
+    const overflowElements = document.querySelectorAll('.overflow-hidden, [style*="overflow: hidden"]')
+    overflowElements.forEach(el => {
+      el.style.overflow = 'auto'
+    })
+    
+    // Fix data layer buttons specifically
+    const dataButtons = document.querySelectorAll('.data-layer-button, .drawing-tools button')
+    dataButtons.forEach(button => {
+      button.style.backgroundColor = 'white'
+      button.style.color = 'black'
+      button.style.opacity = '1'
+      button.style.pointerEvents = 'auto'
+      button.style.cursor = 'pointer'
     })
   }
   
   // Run immediately and on any DOM changes
-  fixButtons()
+  fixElements()
   
-  // Set up mutation observer to fix any dynamically added buttons
+  // Set up mutation observer to fix any dynamically added elements
   const observer = new MutationObserver(() => {
-    fixButtons()
+    fixElements()
   })
   
   observer.observe(document.body, {
     childList: true,
     subtree: true,
     attributes: true,
-    attributeFilter: ['disabled', 'class', 'style']
+    attributeFilter: ['disabled', 'class', 'style', 'aria-disabled']
   })
   
-  // Also run after a short delay to catch any late-loading elements
-  setTimeout(fixButtons, 100)
-  setTimeout(fixButtons, 500)
-  setTimeout(fixButtons, 1000)
+  // Run multiple times to catch late-loading elements
+  setTimeout(fixElements, 100)
+  setTimeout(fixElements, 500)
+  setTimeout(fixElements, 1000)
+  setTimeout(fixElements, 2000)
+  setTimeout(fixElements, 5000)
+  
+  // Set up interval to run every 5 seconds as a failsafe
+  setInterval(fixElements, 5000)
 }
 
 // Initialize when component mounts
